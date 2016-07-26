@@ -1,6 +1,7 @@
 package com.hybrid.fx;
 
 import com.gluonhq.particle.application.ParticleApplication;
+import com.hybrid.Chap03Application;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -9,7 +10,8 @@ import javafx.stage.WindowEvent;
 
 import static org.controlsfx.control.action.ActionMap.actions;
 
-import org.omg.CORBA.CTX_RESTRICT_SCOPE;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 public class MainApplication extends ParticleApplication {
 
@@ -30,22 +32,30 @@ public class MainApplication extends ParticleApplication {
         setShowCloseConfirmation(false);
         
         Platform.runLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-					
-					@Override
-					public void handle(WindowEvent event) {
-						System.out.println("################");
-						System.out.println("ctx.close()...");
-						System.out.println("################");
-						ctx.close();
-					}
-				});
-			}
-		});
-        
-        
+         public void run() {
+            
+            getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+               
+               @Override
+               public void handle(WindowEvent event) {
+                  System.out.println("**************************");
+                  System.out.println("ctx.close()...............");
+                  System.out.println("**************************");
+                  ctx.close();
+                  
+               }
+            });
+         }
+      }); 
     }
+    
+    public static ConfigurableApplicationContext ctx;
+    
+    public static void main(String[] args) {
+      
+       ctx = SpringApplication.run(Chap03Application.class, args);
+       launch(args);
+       
+   }
+    
 }
